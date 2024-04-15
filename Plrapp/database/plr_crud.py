@@ -1,5 +1,5 @@
 from fastapi import HTTPException
-from .models import PlayerBase, PlayerDb
+from .models import PlayerBase, PlayerDb, EventBase, EventDb
 from sqlmodel import Session, select
 
 def get_player(session:Session, id:int):
