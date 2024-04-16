@@ -20,6 +20,8 @@ def add_player(*, session:Session = Depends(get_session), plr_in: PlayerBase):
 def get_player(*, session: Session = Depends(get_session), id:int):
     return plr_crud.get_player(session, id)
 
-@router.get("/{id}/events", status_code=200, response_model=list)
-def get_player_events(*, session: Session = Depends(get_session), type: str = ""):
-    pass
+
+
+#@router.get("/{id}/events", status_code=200, response_model=list)
+#def get_player_events(*, session: Session = Depends(get_session), type: str = ""):
+#    pass
