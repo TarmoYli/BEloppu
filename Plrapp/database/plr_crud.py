@@ -6,20 +6,19 @@ def get_player(session:Session, id:int):
     plr = session.get(PlayerDb, id)
     if not plr:
         raise HTTPException(status_code=404, detail=f"Player with id:{id} not found")
-    plr_data = {"id": plr.id, "name": plr.name}
-    if plr.event is None:
-        plr_data["event"] = []
-    else:
-        plr_data["event"] = plr.event
+    plr_data = {"id": plr.id, "name": plr.name, "event" : plr.event or []}
     return plr_data
 
 def get_players(session:Session, plrname: str = ""):
-    query = select(PlayerDb.id, PlayerDb.name)
-    if plrname:
-        query = query.where(PlayerDb.name == plrname)
-    result = session.exec(query).all()
-    players_data = [{"id": player.id, "name": player.name} for player in result]
-    return players_data
+    if plrname != "":
+        result = session.exec(select(PlayerDb).where(PlayerDb.name == plrname)).all()
+        if not result:
+            raise HTTPException(status_code=404, detail=f"Player with name:{plrname} not found")
+        plr = [{"id": player.id, "name": player.name, "event": player.event or []} for player in result]
+        return plr 
+    result = session.exec(select(PlayerDb)).all()
+    plrs = [{"id": player.id, "name": player.name, "event" : player.event or []} for player in result]
+    return plrs
 
 def add_player(session:Session, plr_in: PlayerBase):
     plr = PlayerDb(name=plr_in.name)
