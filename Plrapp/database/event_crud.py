@@ -1,5 +1,6 @@
 from fastapi import HTTPException
-from .models import PlayerDb, AddEventModel, EventDb
+from .models import EventDb
+from ..database.plr_crud import ordering_event
 from sqlmodel import Session, select
 
 def get_events(session:Session, typename: str = ""):
@@ -9,4 +10,5 @@ def get_events(session:Session, typename: str = ""):
             raise HTTPException(status_code=400, detail=f"Event with type:{typename} does not exist")
         return result
     result = session.exec(select(EventDb)).all()
-    return result
+    final= ordering_event(result)
+    return final

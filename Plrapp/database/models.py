@@ -8,7 +8,7 @@ class EventType(str, Enum):
     level_solved = "level_solved"
 
 class AddEventModel(SQLModel):
-    type: EventType
+    type: str
     detail: str
 
 class CreatePlr(SQLModel):
@@ -32,10 +32,4 @@ class GetPlrs(SQLModel):
 class GetPlrWithId(SQLModel):
     id: int
     name: str
-    events: Any
-
-# "id": 1,
-# "type": "level_started",
-# "detail": "level_1212_001",
-# "timestamp": "2023-01-13 12:01:22",
-# "player_id": 1
+    events: list

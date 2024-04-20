@@ -21,7 +21,7 @@ def add_player(*, session: Session = Depends(get_session), plr_in: CreatePlr):
 def get_player(*, session: Session = Depends(get_session), id:int):
     return plr_crud.get_player(session, id)
 
-@router.post("/{id}/events", status_code=201)
+@router.post("/{id}/events", response_model=EventDb, status_code=201)
 def make_event(id:int, event_in: AddEventModel, session: Session = Depends(get_session)):
     return plr_crud.make_new_event(session, event_in, id)
 
