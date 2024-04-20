@@ -1,5 +1,5 @@
 from fastapi import APIRouter, status, Depends
-from ..database.models import EventBase, EventDb
+from ..database.models import AddEventModel, EventDb
 from ..database import event_crud
 from ..database.database import get_session
 from sqlmodel import Session

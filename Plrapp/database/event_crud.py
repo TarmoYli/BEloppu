@@ -1,5 +1,5 @@
 from fastapi import HTTPException
-from .models import PlayerBase, PlayerDb, EventBase, EventDb
+from .models import PlayerDb, AddEventModel, EventDb
 from sqlmodel import Session, select
 
 def get_events(session:Session, typename: str = ""):
