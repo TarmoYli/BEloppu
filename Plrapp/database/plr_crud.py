@@ -1,5 +1,5 @@
 from fastapi import HTTPException
-from .models import PlayerDb, AddEventModel, EventDb, EventType, CreatePlr
+from .models import PlayerDb, CreateEventModel, EventDb, EventType, CreatePlr
 from sqlmodel import Session, select
 from datetime import datetime
 
@@ -23,7 +23,7 @@ def add_player(session: Session, plr_in: CreatePlr):
     session.refresh(plr)
     return {"id": plr.id, "name": plr.name}
 
-def make_new_event(session: Session, event_in: AddEventModel, plr_id: int):
+def make_new_event(session: Session, event_in: CreateEventModel, plr_id: int):
     plr = session.get(PlayerDb, plr_id)
     if not plr:
         raise HTTPException(status_code=404, detail=f"Player with id:{plr_id} not found")
